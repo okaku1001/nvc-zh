@@ -302,17 +302,22 @@ button{font-family:inherit;color:inherit}
   background:transparent;color:#fff;font-size:16px;cursor:pointer;
 }
 
-/* 对话 */
+/* 对话：我靠右、对方靠左，像两个人在说话 */
 .dlg{
   display:grid;grid-template-columns:3.2em 1fr;gap:0 .55em;
   margin:.58em 0;text-indent:0;align-items:baseline;
 }
+.dlg.other{max-width:88%}
+.dlg.me{grid-template-columns:1fr 3.2em;max-width:88%;margin-left:auto}
+.dlg.me .say{grid-column:1;grid-row:1}   /* 台词占宽列 */
+.dlg.me .who{grid-column:2;grid-row:1}   /* 标签到最右 */
 .dlg .who{
   font-family:var(--sans);font-size:.68em;line-height:1.5;
   color:var(--tn);text-align:right;letter-spacing:.02em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   padding-top:.12em;
 }
+.dlg.me .who{text-align:left}  /* 我的标签换到右侧，贴着竖线 */
 .dlg{--wc:var(--mu)}
 .dlg.me{--wc:var(--acc)}
 .dlg.w1{--wc:#8a5a2b}
@@ -329,14 +334,25 @@ html[data-theme="dark"] .dlg.w5{--wc:#b9a0d2}
 .dlg.me .who{color:var(--wc);font-weight:600}
 .dlg .say{
   font-size:.985em;line-height:1.95;text-indent:0;
-  padding-left:.1em;border-left:2px solid transparent;
+  padding:.12em .1em;
 }
-.dlg.me .say,.dlg.other .say{
-  border-left-color:color-mix(in srgb,var(--wc) 30%,transparent);padding-left:.6em;
+.dlg.other .say{
+  border-left:2px solid color-mix(in srgb,var(--wc) 34%,transparent);
+  padding-left:.6em;
+  background:color-mix(in srgb,var(--wc) 6%,transparent);
+  border-radius:0 10px 10px 0;
+}
+.dlg.me .say{
+  border-right:2px solid color-mix(in srgb,var(--wc) 38%,transparent);
+  padding-right:.6em;
+  background:color-mix(in srgb,var(--acc) 8%,transparent);
+  border-radius:10px 0 0 10px;
 }
 @media(max-width:420px){
   .dlg{grid-template-columns:2.9em 1fr;gap:0 .4em}
-  .dlg .say{padding-left:.45em}
+  .dlg.me{grid-template-columns:1fr 2.9em}
+  .dlg.other .say{padding-left:.45em}
+  .dlg.me .say{padding-right:.45em}
 }
 
 /* 诗 / 引文 */
