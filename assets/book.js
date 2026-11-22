@@ -160,7 +160,7 @@
         if (k >= 0) i = k;
       }
       playing = true;
-      synth.cancel();
+      if (synth.speaking || synth.pending) synth.cancel();
       speakAt(i);
       paint();
     }

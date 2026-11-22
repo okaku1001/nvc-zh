@@ -586,6 +586,10 @@ html[data-theme="dark"] .speaking{background:color-mix(in srgb,var(--mark) 70%,t
   .brand .en{display:none}
   .tnav{gap:9px}
 }
+@media(max-width:345px){
+  .brand{font-size:13px;letter-spacing:.02em}
+  .tnav{gap:7px;font-size:11px}
+}
 
 /* 打印 */
 @media print{
