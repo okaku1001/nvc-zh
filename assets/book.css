@@ -246,7 +246,8 @@ button{font-family:inherit;color:inherit}
 }
 
 /* 小节 */
-.sec-blk{padding-top:34px;scroll-margin-top:calc(var(--top-h) + 12px)}
+.sec-blk{padding-top:28px;scroll-margin-top:calc(var(--top-h) + 12px)}
+#content > .sec-blk:first-child{padding-top:0}
 .sec-blk > h2{
   font-size:1.22em;line-height:1.6;margin:0 0 18px;font-weight:700;
   letter-spacing:.02em;position:relative;padding-left:.85em;
