@@ -543,6 +543,9 @@
 
     input.addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(run, 160) });
     input.addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(tm); run() } });
+    /* 支持 ?q=关键词 直接进结果，链接可分享 */
+    const q0 = new URLSearchParams(location.search).get('q');
+    if (q0) input.value = q0;
     load().then(() => { if (input.value.trim()) run() });
   }
 
