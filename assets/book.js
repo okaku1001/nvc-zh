@@ -11,6 +11,13 @@
   const CH = D.ch || '';
   const PAGE = D.page || '';
 
+  /* 空状态：细线纸页 + 书签，和全站纸感同源；颜色跟随主题 */
+  const EMPTY_ART = '<svg viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="1.6" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M20 9h25l8 8v46H20z"/><path d="M45 9v9h8"/>' +
+    '<path d="M27 29h18M27 36h18M27 43h12"/>' +
+    '<path d="M35 43v13l4-3 4 3V43" stroke-width="1.3"/></svg>';
+
   const store = {
     get(k, d) { try { const v = localStorage.getItem('nvc:' + k); return v == null ? d : JSON.parse(v) } catch (e) { return d } },
     set(k, v) { try { localStorage.setItem('nvc:' + k, JSON.stringify(v)); return true } catch (e) { return false } },
@@ -26,6 +33,27 @@
   if (themeBtn) themeBtn.onclick = () => {
     const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(t); store.set('theme', t);
+  };
+
+  /* ---------- 字号：三档，跟着正文一起缩放 ---------- */
+  const FSS = [16, 18, 20, 22];
+  const applyFs = px => {
+    document.documentElement.style.setProperty('--fs', px + 'px');
+    $$('.fsbtn').forEach(b => b.classList.toggle('on', +b.dataset.fs === (FSS.indexOf(px) - 1)));
+  };
+  applyFs(FSS.includes(store.get('fs', 18)) ? store.get('fs', 18) : 18);
+  const stepFs = step => {
+    const i = FSS.indexOf(parseInt(getComputedStyle(document.body).fontSize, 10));
+    const next = step === 0 ? 1 : Math.max(0, Math.min(FSS.length - 1, (i < 0 ? 1 : i) + step));
+    applyFs(FSS[next]); store.set('fs', FSS[next]);
+    return FSS[next];
+  };
+  $$('.fsbtn').forEach(b => b.onclick = () => stepFs(+b.dataset.fs));
+  const fsTop = $('#fsbtn');
+  if (fsTop) fsTop.onclick = () => {
+    const px = stepFs(1);
+    if (px === FSS[FSS.length - 1]) stepFs(-(FSS.length - 1)); /* 到最大后回到 16 */
+    toast('字号 ' + parseInt(getComputedStyle(document.body).fontSize, 10) + 'px');
   };
 
   /* ---------- 阅读进度条 ---------- */
@@ -300,6 +328,52 @@
   }
 
   /* ============================================================
+     续读：记住每章的滚动位置，首页直达上次那一段
+     ============================================================ */
+  const jumpTo = y => {
+    const h = document.documentElement, old = h.style.scrollBehavior;
+    h.style.scrollBehavior = 'auto';       /* CSS 的 smooth 会连 scrollTop 赋值也变平滑 */
+    h.scrollTop = y; document.body.scrollTop = y;
+    requestAnimationFrame(() => { h.style.scrollBehavior = old });
+  };
+  if (PAGE === 'chapter' && CH) {
+    const key = 'pos:' + CH;
+    const saved = store.get(key, 0);
+    let tm = 0;
+    const save = () => store.set(key, Math.round(scrollY));
+    addEventListener('scroll', () => { clearTimeout(tm); tm = setTimeout(save, 250) }, { passive: true });
+    addEventListener('pagehide', save);
+    const back = $('#toc-resume');
+    if (back && saved > 200) back.hidden = false;
+    if (back) back.onclick = () => {
+      jumpTo(saved);
+      history.replaceState(null, '', location.pathname + location.search);
+    };
+    if (location.hash === '#resume' && saved > 200) {
+      requestAnimationFrame(() => jumpTo(saved));
+      addEventListener('load', () => { if (Math.abs(scrollY - saved) > 120) jumpTo(saved) }, { once: true });
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  }
+
+  /* 原书表格：点图放大（手机上表格原尺寸太小） */
+  if ($('.bookfig img')) {
+    const ov = document.createElement('div');
+    ov.className = 'zoomov';
+    ov.innerHTML = '<button class="zclose" aria-label="关闭">✕</button><img alt="">';
+    document.body.appendChild(ov);
+    const big = $('img', ov);
+    const close = () => { ov.classList.remove('on'); document.body.style.overflow = ''; big.removeAttribute('src') };
+    $$('.bookfig img').forEach(i => i.onclick = () => {
+      big.src = i.currentSrc || i.src; big.alt = i.alt;
+      ov.classList.add('on'); document.body.style.overflow = 'hidden';
+    });
+    $('.zclose', ov).onclick = close;
+    ov.onclick = e => { if (e.target === ov) close() };
+    addEventListener('keydown', e => { if (e.key === 'Escape' && ov.classList.contains('on')) close() });
+  }
+
+  /* ============================================================
      摘录
      ============================================================ */
   const NOTES_KEY = 'notes';
@@ -367,7 +441,7 @@
     const render = () => {
       const list = getNotes();
       if (!list.length) {
-        notesHost.innerHTML = '<div class="empty">还没有摘录。<br>在正文里选中一段话，就会出现「摘录」按钮。</div>';
+        notesHost.innerHTML = '<div class="empty">' + EMPTY_ART + '还没有摘录。<br>在正文里选中一段话，就会出现「摘录」按钮。</div>';
         return;
       }
       notesHost.innerHTML = list.map((n, i) => {
@@ -455,7 +529,7 @@
     const rb = $('#resume');
     if (rb && last) {
       rb.hidden = false;
-      rb.href = 'c/' + last.ch + '.html';
+      rb.href = 'c/' + last.ch + '.html#resume';
       rb.querySelector('.rt').textContent = '继续读第 ' + (+last.ch) + ' 章 · ' + last.title;
     }
   }
@@ -479,7 +553,7 @@
     const load = () => {
       if (IDX) return Promise.resolve(IDX);
       if (loading) return loading;
-      res.innerHTML = '<div class="empty">正在载入全书索引…</div>';
+      res.innerHTML = '<div class="empty">' + EMPTY_ART + '正在载入全书索引…</div>';
       loading = fetch('assets/search.json')
         .then(r => r.json())
         .then(d => { IDX = d; return d })
@@ -513,14 +587,14 @@
     const run = async () => {
       const q = input.value.trim();
       if (!q) {
-        res.innerHTML = '<div class="empty">输入关键词开始检索</div>';
+        res.innerHTML = '<div class="empty">' + EMPTY_ART + '输入关键词开始检索</div>';
         cnt.textContent = '';
         return;
       }
       const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
       const data = await load();
       if (failed) {
-        res.innerHTML = '<div class="empty">索引没能载入。<br>检查网络后刷新页面再试。</div>';
+        res.innerHTML = '<div class="empty">' + EMPTY_ART + '索引没能载入。<br>检查网络后刷新页面再试。</div>';
         cnt.textContent = '';
         return;
       }
@@ -530,7 +604,7 @@
       });
       cnt.textContent = hit.length ? hit.length + ' 段' : '无匹配';
       if (!hit.length) {
-        res.innerHTML = '<div class="empty">没有找到包含「' + esc(q) + '」的段落。<br>试试只用一个词，或换一个说法。</div>';
+        res.innerHTML = '<div class="empty">' + EMPTY_ART + '没有找到包含「' + esc(q) + '」的段落。<br>试试只用一个词，或换一个说法。</div>';
         return;
       }
       const MAX = 120;

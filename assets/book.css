@@ -266,10 +266,41 @@ button{font-family:inherit;color:inherit}
   margin:0 0 .62em;
   text-indent:2em;
   text-wrap:pretty;
+  line-break:strict;      /* 中文避头尾：引号、句号不落行首 */
+  overflow-wrap:break-word;
 }
 #content p.noind{text-indent:0}
+/* 每章开头第一段当导语，不缩进、略大，给正文一个入口 */
+#content p.lead{text-indent:0;font-size:1.06em;line-height:1.9;color:var(--fg);margin-bottom:1em}
 @media(max-width:640px){
   #content p{margin-bottom:.58em}
+  #content p.lead{margin-bottom:.9em}
+}
+
+/* 原书插图 / 表格 */
+.bookfig{position:relative;margin:1.2em 0 1.35em;text-indent:0}
+.bookfig img{
+  display:block;width:100%;max-width:680px;margin:0 auto;
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  cursor:zoom-in;
+}
+.bookfig::after{
+  content:"⤢";position:absolute;right:9px;bottom:9px;
+  font-family:var(--sans);font-size:11px;line-height:1;
+  color:var(--mu);background:color-mix(in srgb,var(--card) 92%,transparent);
+  border:1px solid var(--line);border-radius:6px;padding:4px 6px;pointer-events:none;
+}
+.zoomov{
+  position:fixed;inset:0;z-index:120;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(22,19,16,.965);backdrop-filter:blur(6px);
+}
+.zoomov.on{display:flex}
+.zoomov img{max-width:100%;max-height:92vh;object-fit:contain;background:#fff}
+.zoomov .zclose{
+  position:absolute;top:14px;right:16px;width:34px;height:34px;
+  border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:transparent;color:#fff;font-size:16px;cursor:pointer;
 }
 
 /* 对话 */
@@ -283,13 +314,27 @@ button{font-family:inherit;color:inherit}
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   padding-top:.12em;
 }
-.dlg.me .who{color:var(--acc);font-weight:600}
+.dlg{--wc:var(--mu)}
+.dlg.me{--wc:var(--acc)}
+.dlg.w1{--wc:#8a5a2b}
+.dlg.w2{--wc:#3f6f8c}
+.dlg.w3{--wc:#8b4a5b}
+.dlg.w4{--wc:#5e7041}
+.dlg.w5{--wc:#7a5b8c}
+html[data-theme="dark"] .dlg.w1{--wc:#d0a170}
+html[data-theme="dark"] .dlg.w2{--wc:#8ab6d0}
+html[data-theme="dark"] .dlg.w3{--wc:#d19aa8}
+html[data-theme="dark"] .dlg.w4{--wc:#a7bd85}
+html[data-theme="dark"] .dlg.w5{--wc:#b9a0d2}
+.dlg.other .who{color:var(--wc)}
+.dlg.me .who{color:var(--wc);font-weight:600}
 .dlg .say{
   font-size:.985em;line-height:1.95;text-indent:0;
   padding-left:.1em;border-left:2px solid transparent;
 }
-.dlg.me .say{border-left-color:color-mix(in srgb,var(--acc) 32%,transparent);padding-left:.6em}
-.dlg.other .say{border-left-color:color-mix(in srgb,var(--mu) 22%,transparent);padding-left:.6em}
+.dlg.me .say,.dlg.other .say{
+  border-left-color:color-mix(in srgb,var(--wc) 30%,transparent);padding-left:.6em;
+}
 @media(max-width:420px){
   .dlg{grid-template-columns:2.9em 1fr;gap:0 .4em}
   .dlg .say{padding-left:.45em}
@@ -431,6 +476,13 @@ html[data-theme="dark"] .speaking{background:color-mix(in srgb,var(--mark) 70%,t
   background:var(--bg);border:1px solid var(--line);border-radius:999px;
   width:32px;height:32px;cursor:pointer;color:var(--mu);
 }
+.fsrow{display:flex;align-items:center;gap:8px;padding:9px 10px;color:var(--mu);font-size:.92em}
+.fsrow .fsbtn{
+  background:var(--card);border:1px solid var(--line);color:var(--mu);
+  border-radius:8px;font-family:var(--sans);font-size:11.5px;
+  min-width:38px;padding:5px 8px;cursor:pointer;
+}
+.fsrow .fsbtn:hover,.fsrow .fsbtn.on{border-color:var(--acc);color:var(--acc)}
 
 /* ---------- 摘录浮标 ---------- */
 .selbar{
@@ -464,8 +516,12 @@ html[data-theme="dark"] .speaking{background:color-mix(in srgb,var(--mark) 70%,t
 .note-item .del:hover{color:#b3443a}
 
 .empty{
-  padding:60px 0;text-align:center;color:var(--tn);
+  padding:50px 0;text-align:center;color:var(--tn);
   font-family:var(--sans);font-size:13px;line-height:2;
+}
+.empty svg{
+  width:62px;height:62px;display:block;margin:0 auto 14px;
+  color:var(--tn);opacity:.75;
 }
 
 /* ---------- 练习作答 ---------- */
@@ -507,6 +563,30 @@ html[data-theme="dark"] .speaking{background:color-mix(in srgb,var(--mark) 70%,t
   padding-left:.8em;border-left:2px solid color-mix(in srgb,var(--acc) 30%,transparent);
   margin:.6em 0 .8em;
 }
+
+/* ---------- 按说话人看 ---------- */
+#content h2.vhead{--wc:var(--mu);display:flex;align-items:baseline;gap:.8em;flex-wrap:wrap}
+#content h2.vhead.me{--wc:var(--acc)}
+#content h2.vhead.w1{--wc:#8a5a2b}
+#content h2.vhead.w2{--wc:#3f6f8c}
+#content h2.vhead.w3{--wc:#8b4a5b}
+#content h2.vhead.w4{--wc:#5e7041}
+#content h2.vhead.w5{--wc:#7a5b8c}
+html[data-theme="dark"] #content h2.vhead.w1{--wc:#d0a170}
+html[data-theme="dark"] #content h2.vhead.w2{--wc:#8ab6d0}
+html[data-theme="dark"] #content h2.vhead.w3{--wc:#d19aa8}
+html[data-theme="dark"] #content h2.vhead.w4{--wc:#a7bd85}
+html[data-theme="dark"] #content h2.vhead.w5{--wc:#b9a0d2}
+#content h2.vhead .h2t{color:var(--wc);font-size:1.08em}
+#content h2.vhead .vcnt{
+  font-family:var(--sans);font-size:.6em;font-weight:400;color:var(--tn);
+  letter-spacing:.08em;
+}
+.vq{margin:0 0 1.1em;padding-left:.85em;border-left:2px solid color-mix(in srgb,var(--wc,var(--line)) 20%,transparent)}
+#content .vq .vtext{margin:0 0 .3em;font-size:.95em;line-height:1.88;text-indent:0}
+#content .vq .vsrc{margin:0;font-family:var(--sans);font-size:10.5px;color:var(--tn);text-indent:0;line-height:1.6}
+.vq .vsrc a{color:var(--tn);text-decoration:underline;text-underline-offset:2px}
+.vq .vsrc a:hover{color:var(--acc)}
 
 /* 速查页 */
 #content h3.mstep{
@@ -586,6 +666,9 @@ html[data-theme="dark"] .speaking{background:color-mix(in srgb,var(--mark) 70%,t
 @media(max-width:390px){
   .brand .en{display:none}
   .tnav{gap:9px}
+}
+@media(max-width:360px){
+  .tnav a[href$="voices.html"]{display:none}  /* 与左侧品牌、目录重复时让位 */
 }
 @media(max-width:345px){
   .brand{font-size:13px;letter-spacing:.02em}
