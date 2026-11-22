@@ -1,0 +1,299 @@
+[
+ {
+  "n": 1,
+  "file": "01.mp3",
+  "seconds": 280.4,
+  "chapter": "译序",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 0,
+  "end": 11,
+  "href": "part0003.xhtml",
+  "cover": [
+   "part0003.xhtml"
+  ]
+ },
+ {
+  "n": 2,
+  "file": "02.mp3",
+  "seconds": 262.9,
+  "chapter": "前言",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 11,
+  "end": 25,
+  "href": "part0004.xhtml",
+  "cover": [
+   "part0004.xhtml"
+  ]
+ },
+ {
+  "n": 3,
+  "file": "03.mp3",
+  "seconds": 45.7,
+  "chapter": "语言是窗户（否则，它们是墙）",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 25,
+  "end": 47,
+  "href": "part0005.xhtml",
+  "cover": [
+   "part0005.xhtml"
+  ]
+ },
+ {
+  "n": 4,
+  "file": "04.mp3",
+  "seconds": 2.5,
+  "chapter": "第一章 让爱融入生活",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 47,
+  "end": 48,
+  "href": "part0006.xhtml",
+  "cover": [
+   "part0006.xhtml"
+  ]
+ },
+ {
+  "n": 5,
+  "file": "05.mp3",
+  "seconds": 619.2,
+  "chapter": "第一章 让爱融入生活",
+  "engine": "ListenHub",
+  "voice": "晓曼",
+  "start": 48,
+  "end": 108,
+  "href": "part0006.xhtml",
+  "cover": [
+   "part0006.xhtml"
+  ]
+ },
+ {
+  "n": 6,
+  "file": "06.mp3",
+  "seconds": 1126.0,
+  "chapter": "第一章 让爱融入生活",
+  "engine": "ListenHub",
+  "voice": "晓曼",
+  "start": 108,
+  "end": 188,
+  "href": "part0006.xhtml",
+  "cover": [
+   "part0006.xhtml",
+   "part0007.xhtml"
+  ]
+ },
+ {
+  "n": 7,
+  "file": "07.mp3",
+  "seconds": 1167.1,
+  "chapter": "第二章 是什么蒙蔽了爱？",
+  "engine": "ListenHub",
+  "voice": "晓曼",
+  "start": 188,
+  "end": 354,
+  "href": "part0007.xhtml",
+  "cover": [
+   "part0007.xhtml",
+   "part0008.xhtml",
+   "part0009.xhtml"
+  ]
+ },
+ {
+  "n": 8,
+  "file": "08.mp3",
+  "seconds": 240.1,
+  "chapter": "第四章 体会和表达感受",
+  "engine": "ListenHub",
+  "voice": "晓曼",
+  "start": 354,
+  "end": 409,
+  "href": "part0009.xhtml",
+  "cover": [
+   "part0009.xhtml"
+  ]
+ },
+ {
+  "n": 9,
+  "file": "09.mp3",
+  "seconds": 91.1,
+  "chapter": "第四章 体会和表达感受",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 409,
+  "end": 417,
+  "href": "part0009.xhtml",
+  "cover": [
+   "part0009.xhtml"
+  ]
+ },
+ {
+  "n": 10,
+  "file": "10.mp3",
+  "seconds": 1299.5,
+  "chapter": "第五章 感受的根源",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 417,
+  "end": 562,
+  "href": "part0010.xhtml",
+  "cover": [
+   "part0010.xhtml"
+  ]
+ },
+ {
+  "n": 11,
+  "file": "11.mp3",
+  "seconds": 2022.1,
+  "chapter": "第六章 请求帮助",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 562,
+  "end": 715,
+  "href": "part0011.xhtml",
+  "cover": [
+   "part0011.xhtml"
+  ]
+ },
+ {
+  "n": 12,
+  "file": "12.mp3",
+  "seconds": 1741.0,
+  "chapter": "第七章 用全身心倾听",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 715,
+  "end": 864,
+  "href": "part0012.xhtml",
+  "cover": [
+   "part0012.xhtml"
+  ]
+ },
+ {
+  "n": 13,
+  "file": "13.mp3",
+  "seconds": 1344.9,
+  "chapter": "第八章 倾听的力量",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 864,
+  "end": 950,
+  "href": "part0013.xhtml",
+  "cover": [
+   "part0013.xhtml"
+  ]
+ },
+ {
+  "n": 14,
+  "file": "14.mp3",
+  "seconds": 1087.1,
+  "chapter": "第九章 爱自己",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 950,
+  "end": 1019,
+  "href": "part0014.xhtml",
+  "cover": [
+   "part0014.xhtml"
+  ]
+ },
+ {
+  "n": 15,
+  "file": "15.mp3",
+  "seconds": 1750.2,
+  "chapter": "第十章 充分表达愤怒",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1019,
+  "end": 1156,
+  "href": "part0015.xhtml",
+  "cover": [
+   "part0015.xhtml"
+  ]
+ },
+ {
+  "n": 16,
+  "file": "16.mp3",
+  "seconds": 782.4,
+  "chapter": "第十一章 运用强制力避免伤害",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1156,
+  "end": 1214,
+  "href": "part0016.xhtml",
+  "cover": [
+   "part0016.xhtml"
+  ]
+ },
+ {
+  "n": 17,
+  "file": "17.mp3",
+  "seconds": 1233.0,
+  "chapter": "第十二章 重获生活的热情",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1214,
+  "end": 1274,
+  "href": "part0017.xhtml",
+  "cover": [
+   "part0017.xhtml"
+  ]
+ },
+ {
+  "n": 18,
+  "file": "18.mp3",
+  "seconds": 735.1,
+  "chapter": "第十三章 表达感激",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1274,
+  "end": 1336,
+  "href": "part0018.xhtml",
+  "cover": [
+   "part0018.xhtml"
+  ]
+ },
+ {
+  "n": 19,
+  "file": "19.mp3",
+  "seconds": 190.1,
+  "chapter": "后记",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1336,
+  "end": 1374,
+  "href": "part0019.xhtml",
+  "cover": [
+   "part0019.xhtml"
+  ]
+ },
+ {
+  "n": 20,
+  "file": "20.mp3",
+  "seconds": 73.3,
+  "chapter": "附录：非暴力沟通模式",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1374,
+  "end": 1401,
+  "href": "part0020.xhtml",
+  "cover": [
+   "part0020.xhtml"
+  ]
+ },
+ {
+  "n": 21,
+  "file": "21.mp3",
+  "seconds": 41.5,
+  "chapter": "编后记",
+  "engine": "Kokoro-82M 本地",
+  "voice": "zf_002",
+  "start": 1401,
+  "end": 1412,
+  "href": "part0021.xhtml",
+  "cover": [
+   "part0021.xhtml"
+  ]
+ }
+]
