@@ -15,6 +15,8 @@
   --acc-2:#8a5a2b;
   --acc-soft:#e8f0ec;
   --mark:#f6e3a8;
+  /* 四要素语义色：观察青 / 感受橙 / 需要绿 / 请求紫，全书统一 */
+  --e-obs:#2f6f8c; --e-feel:#b5651d; --e-need:#4b7a46; --e-req:#77569b;
   --fs:18px;
   --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC",Georgia,"Times New Roman",serif;
   --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
@@ -32,6 +34,7 @@ html[data-theme="dark"]{
   --acc-2:#c79a68;
   --acc-soft:#22302c;
   --mark:#5c4a1e;
+  --e-obs:#7fb8d6; --e-feel:#dda35e; --e-need:#8fbf88; --e-req:#b49ad6;
 }
 
 *{box-sizing:border-box}
@@ -161,6 +164,10 @@ button{font-family:inherit;color:inherit}
   font-family:var(--sans);font-size:10px;letter-spacing:.12em;color:var(--tn);
 }
 .four .k{font-size:1.05em;font-weight:700;letter-spacing:.12em;color:var(--acc)}
+.four a.e-obs{--ec:var(--e-obs)} .four a.e-feel{--ec:var(--e-feel)}
+.four a.e-need{--ec:var(--e-need)} .four a.e-req{--ec:var(--e-req)}
+.four a[class*=" e-"] .k{color:var(--ec)}
+.four a[class*=" e-"]:hover{box-shadow:0 12px 28px color-mix(in srgb,var(--ec) 18%,transparent)}
 .four .d{font-family:var(--sans);font-size:10.5px;color:var(--tn);letter-spacing:.02em}
 
 /* 区块 */
@@ -386,6 +393,54 @@ html[data-theme="dark"] .dlg.w5{--wc:#b9a0d2}
 
 /* 加粗 */
 #content b{font-weight:700;color:color-mix(in srgb,var(--fg) 100%,transparent)}
+
+/* ---- 四要素标注：作者亲手在原文写的（观察）（感受）（需要）（请求）----
+   书里最独特的学习抓手，用语义色做成小标签，全书统一。字一个没改。 */
+.el{
+  font-family:var(--sans);font-size:.74em;font-weight:600;letter-spacing:.04em;
+  padding:.08em .42em;margin:0 .08em;border-radius:5px;white-space:nowrap;
+  vertical-align:.08em;line-height:1.6;
+  background:color-mix(in srgb,var(--ec) 11%,transparent);
+  color:var(--ec);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ec) 20%,transparent);
+}
+.el-obs{--ec:var(--e-obs)} .el-feel{--ec:var(--e-feel)}
+.el-need{--ec:var(--e-need)} .el-req{--ec:var(--e-req)}
+html[data-theme="dark"] .el{background:color-mix(in srgb,var(--ec) 16%,transparent)}
+
+/* 对话里的动作提示（提出请求）（体会他的感受……）：淡化为舞台提示，
+   与台词本身分开，视线先落在说的话上。 */
+.cue{
+  font-size:.82em;color:var(--tn);font-style:normal;
+  letter-spacing:.01em;
+}
+
+/* ---- 实例卡：原书的「非暴力沟通实例/案例」+ 紧跟的案例标题 ---- */
+#content p.case-label{
+  text-indent:0;font-family:var(--sans);font-size:.72em;font-weight:700;
+  letter-spacing:.16em;color:var(--acc);
+  margin:1.9em 0 .1em;display:inline-block;
+  padding:4px 11px;border-radius:6px;
+  background:var(--acc-soft);
+}
+#content p.case-title{
+  text-indent:0;font-size:1.02em;font-weight:700;letter-spacing:.02em;
+  color:var(--fg);margin:.1em 0 .85em;line-height:1.6;
+  padding-bottom:.5em;border-bottom:1px solid var(--line);
+}
+
+/* 章末「小结」「练习」：全书复习抓手，标题加一枚色签 */
+.sec-blk.is-summary > h2 .h2t::after,
+.sec-blk.is-practice > h2 .h2t::after{
+  font-family:var(--sans);font-size:.52em;font-weight:600;letter-spacing:.08em;
+  vertical-align:.18em;margin-left:.8em;padding:.12em .5em;border-radius:5px;
+  background:var(--acc-soft);color:var(--acc);
+}
+.sec-blk.is-summary > h2 .h2t::after{content:"小结"}
+.sec-blk.is-practice > h2 .h2t::after{content:"练习"}
+.sec-blk.is-summary{background:color-mix(in srgb,var(--acc-soft) 34%,transparent);
+  margin:1.6em -18px 0;padding:22px 18px 6px;border-radius:12px}
+@media(min-width:640px){.sec-blk.is-summary{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}}
 
 /* 节末小记号 */
 .sec-end{
