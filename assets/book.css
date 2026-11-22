@@ -265,7 +265,6 @@ button{font-family:inherit;color:inherit}
 #content p{
   margin:0 0 .62em;
   text-indent:2em;
-  text-wrap:pretty;
   line-break:strict;      /* 中文避头尾：引号、句号不落行首 */
   overflow-wrap:break-word;
 }
